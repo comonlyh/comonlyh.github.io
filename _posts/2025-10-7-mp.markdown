@@ -5,8 +5,8 @@ author:    "Lyh"
 header-style: text
 catalog:   true
 tags:
-    - Web
-    - JavaScript
+    - 日记
+    
 ---
 
 - 为什么要开始创建个人站点记录学习笔记及其他值得记录的事呢?
