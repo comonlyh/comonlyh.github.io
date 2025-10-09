@@ -9,21 +9,24 @@ tags:
     
 ---
 
-## 1.文章介绍
+---
+
+**1. 文章介绍**
 - 文章名:Toward reliable signals decoding for electroencephalogram: A benchmark study to EEGNeX
 - 主要工作:对EEGNet模型进行改进,且有四处改进非常成功,使其成为媲美EEGNet的深度学习轻量级模型.
-## 2.改进介绍
+
+---
+
+**2. 改进介绍**
 ![alt text](/img/image.png)
 1. Block1:EEGNeX在其基础上加了一层(串联)Conv2d.
 
 ```python
-
 self.block2 = nn.Sequential(
     nn.Conv2d(F, F*4, kernel_size=(1, 64), bias=False, padding='same'),
     nn.BatchNorm2d(F*4, momentum=0.01, affine=True, eps=1e-3)
 )
 #affine表示是否使用可学习的缩放和偏移参数
-
 ```
 
 核心思想:渐进式特征学习,从基础时间模式到复杂时间模式.
@@ -31,7 +34,6 @@ self.block2 = nn.Sequential(
 2. 移除深度可分离卷积(因在block2中已经进行了深度卷积,深度可分离变得冗余),添加两个空洞卷积.
 
 ```python
-
 # Block 4: 第一个空洞卷积
 self.block4 = nn.Sequential(
     nn.Conv2d(F*4*D, F*4*D, kernel_size=(1, 16), bias=False, 
@@ -49,24 +51,26 @@ self.block5 = nn.Sequential(
     nn.Dropout(p=dropoutRate),
     nn.Flatten()
 )
-
 ```
 
 - 为什么说冗余?
 - 在空间维度为1时,没有空间信息需要保持,1x1卷积只是做通道间的线性组合,这种通道融合可以用更简单的线性层实现.此时,空洞卷积通过扩大时间感受野来替代其功能.
 3. 使用逆瓶颈结构->滤波器数量:8-32-64-64-8,先扩展后收缩.
 4. 使用填充和减少激活层来增加模型感受野
-   
-## 3.插曲
+
+---
+
+**3. 插曲**
 起因:还未搞清什么原因,cursor上的聊天记录还没整理就丢了.
 解决:"悟已往之不谏,知来者之可追",解决方法就是因聊天记录存储在SQLite数据库的state.vscdb文件中,使用网上推荐的DB Browser for SQLite工具打开文件(注意右下角选所有文件(.*),否则会被吞掉扩展名),然后开始找.
 
-## 4.问题总结与解决方案
+---
+
+**4. 问题总结与解决方案**
 1. 2a数据集加载失败,数据格式不匹配.
 - 解决方案:如下使用mne库处理gdf文件.
   
 ```python
-
 import mne
 import numpy as np
 train_file = "file_path.gdf"  
@@ -93,15 +97,13 @@ event_ids = epochs_train.events[:, 2]
 label_mapping = {7: 0, 8: 1, 9: 2, 10: 3}  
 # 进行标签映射
 labels = np.array([label_mapping.get(event_id, -1) for event_id in event_ids])  
-# 这里“-1”可作为未映射到的标签的默认值，实际需根据数据调整
-
+# 这里"-1"可作为未映射到的标签的默认值，实际需根据数据调整
 ```
 
 2. 论文中的早停机制实现步骤?
 - 解决方法:示例代码如下
   
 ```python
-
 def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
     # 早停机制变量初始化
     patience_counter = 0
@@ -121,19 +123,24 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
             if patience_counter >= early_stop_patience:
                 print(f"早停触发，在第{epoch}个epoch停止训练")
                 break  # 提前结束训练
-
 ```
 
 - 总结原理如下:val_loss作为监控指标,patience_counter记录连续多少个epoch验证损失没有改善,early_stop_patience=30个验证损失都没有改善时,触发早停.
-## 5.知识点补充
+
+---
+
+**5. 知识点补充**
 1. 早停机制:当验证准确率连续多轮不再提升甚至下降时,说明模型开始拟合训练数据,此时停止训练,保留泛化能力最好的模型状态.
 2. Dilation参数(膨胀率)时卷积神经网络中用于扩大卷积核感受野的参数,无需增加计算量和参数量,能帮助模型更高效的捕捉全局信息.
    1. Dilation=1时,卷积核元素紧密排列,是常规卷积.
    2. Dilation=2时,卷积核元素间会插入一个空格,感受野范围翻倍.
 3. 基线校正:神经信号预处理中的一个重要步骤,就是以信号里一段无任务期的静息值为参考,消除信号的直流偏移和基线偏移,让静息状态下的信号尽可能为0,让不同时段的信号有统一的基准.
-## 6.实验结果简述
+
+---
+
+**6. 实验结果简述**
 本人通过三个版本对论文进行了重现.感慨于早停机制对结果的影响之大.具体如下:
-1. **版本总览**
+1. 版本总览
 
 | 版本  | 平均准确率 | 主要特点 |
 |------|------------|----------|
@@ -141,9 +148,9 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
 | **版本2**| **89.62%** | GitHub匹配版本，无早停 |
 | **版本3**  | **78.65%** | 带早停和动态绘图 |
 
-2. **差异汇总**
+2. 差异汇总
 
- *模型架构差异*
+*模型架构差异*
 
 | 参数 | 版本1 | 版本2 | 版本3 |
 |------|-------|-------|-------|
@@ -171,7 +178,7 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
 | **CAR滤波** | ✅ 有 | ❌ 无 | ❌ 无 |
 | **数据分割比例** | 60% train, 20% val, 20% test | 75% train, 12.5% val, 12.5% test | 75% train, 12.5% val, 12.5% test |
 
-3. **实验结果**
+3. 实验结果
 以被试7的相关结果为例:
 ![alt text](/img/image-1.png)
 可以看出早停对acc的影响很大(但准确率更贴合原论文),简单分析:
