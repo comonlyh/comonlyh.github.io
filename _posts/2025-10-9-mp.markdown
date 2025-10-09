@@ -13,7 +13,7 @@ tags:
 - 文章名:Toward reliable signals decoding for electroencephalogram: A benchmark study to EEGNeX
 - 主要工作:对EEGNet模型进行改进,且有四处改进非常成功,使其成为媲美EEGNet的深度学习轻量级模型.
 ## 2.改进介绍
-![alt text](image.png)
+![alt text](/img/image.png)
 1. Block1:EEGNeX在其基础上加了一层(串联)Conv2d.
 ```python
 self.block2 = nn.Sequential(
@@ -154,7 +154,7 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
 
 3. **实验结果**
 以被试7的相关结果为例:
-![alt text](image-1.png)
+![alt text](/img/image-1.png)
 可以看出早停对acc的影响很大(但准确率更贴合原论文),简单分析:
 - 学习率调度过于激进,下降过快,可能导致模型在训练后期学习能力不足
 - 此机制可能更适合图像等相对简答的数据,对EEG这种时序信号可能不够实用.
