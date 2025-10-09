@@ -138,7 +138,7 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
 **6. 实验结果简述**
 
 本人通过三个版本对论文进行了重现.感慨于早停机制对结果的影响之大.具体如下:
-1. 版本总览
+- 版本总览
 
 | 版本  | 平均准确率 | 主要特点 |
 |------|------------|----------|
@@ -146,7 +146,7 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
 | **版本2**| **89.62%** | GitHub匹配版本，无早停 |
 | **版本3**  | **78.65%** | 带早停和动态绘图 |
 
-2. 差异汇总
+- 差异汇总
 
 *模型架构差异*
 
@@ -176,7 +176,7 @@ def train_single_subject(subject_id, n_epochs=500, early_stop_patience=30):
 | **CAR滤波** | ✅ 有 | ❌ 无 | ❌ 无 |
 | **数据分割比例** | 60% train, 20% val, 20% test | 75% train, 12.5% val, 12.5% test | 75% train, 12.5% val, 12.5% test |
 
-3. 实验结果
+- 实验结果
 以被试7的相关结果为例:
 ![alt text](/img/image-1.png)
 可以看出早停对acc的影响很大(但准确率更贴合原论文),简单分析:
