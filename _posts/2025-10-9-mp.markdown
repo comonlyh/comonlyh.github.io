@@ -1,6 +1,6 @@
 ---
 layout:    post
-title:     "速通EEGNxt"
+title:     "EEGNex"
 author:    "Lyh"
 header-style: text
 catalog:   true
