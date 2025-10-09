@@ -5,7 +5,7 @@ author:    "Lyh"
 header-style: text
 catalog:   true
 tags:
-    - 日记
+    - diary
     
 ---
 
@@ -17,5 +17,9 @@ tags:
 - 一步一个脚印的学习BCI论文并在项目中培养自己的能力everything.
 - 英语六级确实重要,每周刷1-2套卷保持手感,加油干,越高越好
 - 保持专业课成绩,任务快速过完
+#### 补充push步骤方便查找:
+1. cmd进入仓库目录
+2. 可git status一下再git add .
+3. git commit -m "修改说明"
+4. git push origin master
 
-暂时说到这里.
