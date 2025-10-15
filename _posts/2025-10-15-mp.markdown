@@ -1,0 +1,16 @@
+---
+layout:    post
+title:     "反思EEGNeX的复现"
+author:    "Lyh"
+header-style: text
+catalog:   true
+tags:
+    - BCI
+    
+---
+
+1. 复现前先思考如果怎么做会有这么样的问题,问清楚或者说看懂要复现的是什么,大致怎么个结果心里有数.
+2. 版本从v1开始,无版本0.
+3. 用cursor生成的代码看着生成的代码自己思考自己敲
+4. 复现汇报做到让别人看你的总结可以看明白,修改的版本要有从()->(),即说清修改了哪些部分,示例如下:![alt text](/img/image1015.png)![alt text](/img/image1015-1.png)
+5. 未完待续......
