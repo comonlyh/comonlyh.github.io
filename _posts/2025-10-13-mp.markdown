@@ -10,7 +10,7 @@ tags:
 ---
 
 
-***半成品,还未深入学习数学推导及所有模型,后续更新***
+
 ## 介绍
 1. 标题:A novel hybrid brain‒computer interface for EEG and  EMG based on an ensemble learning approach for  motor imagery classification tasks
 2. 作者:Zhenxi Zhao, Yingyu Cao, Hongbin Yu, Huixian Yu, and Junfen Huang

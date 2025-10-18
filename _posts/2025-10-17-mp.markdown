@@ -1,0 +1,49 @@
+---
+layout:    post
+title:     "Braindecode"
+author:    "Lyh"
+header-style: text
+catalog:   true
+tags:
+    - BCI
+    
+---
+
+Braindecode是一个专注于脑信号解码的开源工具包,核心目标是降低BCI与深度学习结合的技术门槛,助力研究者高效开展脑信号分析相关研究.核心模块如下:
+1. 主要入口文件
+   1. __init__.py 库的主入口,导入核心类
+   2. classifier.py EEG分类器,用于脑电信号分类任务
+   3. regressor.py EEG回归器,用于脑电信号回归任务
+   4. eegneuralnet.py 神经网络包装器,提供统一的训练接口
+2. 数据集处理模块(datasets/)
+   1. base.py 基础数据集类
+   2. bbci.py BBCI数据集(脑机接口竞赛数据)等(此处省略)
+3. 神经网络模型(models/)
+4. 模块组件(modules/)
+   1. convolution.py 卷积层实现
+   2. attention.py 注意力机制
+   3. filter.py 滤波器层
+   4. activation.py 激活函数
+   5. stats.py 统计层
+5. 数据增强(augmentation/)
+   1. base.py 基础变换类
+   2. functional.py 数据增强函数
+   3. transforms.py 具体的数据变换
+6. 预处理(preprocessing/)
+   1. preprocess.py 数据预处理函数
+   2. mne_preprocess.py MNE-Python集成
+   3. windowers.py 时间窗口处理
+7. 训练相关(training/)
+   1. callbacks.py 训练回调函数
+   2. losses.py 损失函数
+   3. scoring.py 评估指标
+8. 可视化(visualization/)
+   1. condusion_matrices.py 混淆矩阵可视化
+   2. gradients.py 梯度可视化
+9. 工具模块
+   1.  detautil/ 数据工具(序列化,工具函数)
+   2.  functional/ 功能函数
+   3.  samplers/ 数据采样器
+   4.  util.py 通用工具函数
+
+ 
